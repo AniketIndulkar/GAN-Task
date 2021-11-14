@@ -8,7 +8,7 @@ import androidx.room.Query
 interface BBCharacterDAO {
 
     @Query("SELECT * FROM BBCharacter ORDER BY NAME")
-    suspend fun getAllCharacters() : LiveData<List<BBCharacterRoomEntity>>
+    suspend fun getAllCharacters() : List<BBCharacterRoomEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBBCharacter(bbCharacter : BBCharacterRoomEntity): Long
