@@ -32,7 +32,7 @@ object RetrofitModel {
 
     @Singleton
     @Provides
-    fun provideBlogService(retrofit: Retrofit.Builder): BBCharacterAPI {
+    fun provideBbCharacterService(retrofit: Retrofit.Builder): BBCharacterAPI {
         return retrofit
             .build()
             .create(BBCharacterAPI::class.java)
