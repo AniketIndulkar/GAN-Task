@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.gan.gan_task.model.BBCharacter
 import com.gan.gan_task.repository.MainRepository
 import com.gan.gan_task.util.DataState
+import com.gan.gan_task.util.MainStateEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -21,21 +22,27 @@ class MainViewModel @Inject constructor(
     val dataState: LiveData<DataState<List<BBCharacter>>>
         get() = _dataState
 
-    fun setStateEvent(mainStateEvent: MainStateEvent){
+    fun setStateEvent(mainStateEvent: MainStateEvent) {
         viewModelScope.launch {
-            when(mainStateEvent){
+            when (mainStateEvent) {
                 is MainStateEvent.GetBBCharacters -> {
                     mainRepository.getBBCharacters()
-                        .onEach {dataState ->
+                        .onEach { dataState ->
                             _dataState.value = dataState
                         }
                         .launchIn(viewModelScope)
                 }
 
-                MainStateEvent.None -> {
-                    // who cares
+                is MainStateEvent.Search -> {
+                    mainRepository.searchCharacter(mainStateEvent.searchString)
+                        .onEach { _dataState.value = it }.launchIn(viewModelScope)
                 }
-                else ->{
+
+                is MainStateEvent.Sort ->{
+                    mainRepository.filterCharacter()
+                        .onEach { _dataState.value = it }.launchIn(viewModelScope)
+                }
+                else -> {
 
                 }
             }
@@ -44,9 +51,3 @@ class MainViewModel @Inject constructor(
 
 }
 
-sealed class MainStateEvent{
-
-    object GetBBCharacters: MainStateEvent()
-
-    object None: MainStateEvent()
-}
