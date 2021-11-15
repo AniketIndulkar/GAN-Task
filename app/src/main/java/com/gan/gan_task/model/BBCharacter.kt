@@ -1,5 +1,7 @@
 package com.gan.gan_task.model
 
+import com.google.gson.Gson
+
 
 /*
 * {
@@ -18,13 +20,37 @@ package com.gan.gan_task.model
 data class BBCharacter(
     var char_id: Int,
     var name: String,
-    var birthday : String,
-    var occupation : List<String>,
-    var img : String,
-    var status : String,
+    var birthday: String,
+    var occupation: List<String>,
+    var img: String,
+    var status: String,
     var nickname: String,
-    var appearance : List<Int>,
+    var appearance: List<Int>,
     var portrayed: String,
     var category: String,
-    var better_call_saul_appearance: List<Int>
-)
+    var better_call_saul_appearance: List<Int>,
+    var isFav : Boolean
+) {
+
+    public fun toStringOccupation(): String {
+        val strBuilder =StringBuilder()
+        occupation.forEach {
+            strBuilder.append("$it ,")
+        }
+        return strBuilder.toString()
+    }
+
+    public fun toStringSeasons(): String{
+
+        val strBuilder = StringBuilder()
+        appearance.forEach {
+            strBuilder.append("$it, ")
+        }
+        return strBuilder.toString()
+    }
+
+    override fun toString(): String{
+        return Gson().toJson(this).toString()
+    }
+
+}
