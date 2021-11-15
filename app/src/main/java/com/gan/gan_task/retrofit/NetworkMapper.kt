@@ -16,7 +16,8 @@ class NetworkMapper @Inject constructor(): EntityMapper<BBCharacterNetworkEntity
         portrayed = entity.portrayed,
         appearance = entity.appearance,
         category = entity.category,
-        better_call_saul_appearance = entity.better_call_saul_appearance)
+        better_call_saul_appearance = entity.better_call_saul_appearance,
+        isFav = false)
     }
 
     override fun mapToEntity(domainModel: BBCharacter): BBCharacterNetworkEntity {

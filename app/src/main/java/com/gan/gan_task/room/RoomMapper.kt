@@ -1,13 +1,13 @@
 package com.gan.gan_task.room
 
 import com.gan.gan_task.model.BBCharacter
-import com.gan.gan_task.retrofit.BBCharacterNetworkEntity
 import com.gan.gan_task.util.EntityMapper
 import javax.inject.Inject
 
-class RoomMapper @Inject constructor(): EntityMapper<BBCharacterRoomEntity, BBCharacter> {
+class RoomMapper @Inject constructor() : EntityMapper<BBCharacterRoomEntity, BBCharacter> {
     override fun mapFromEntity(entity: BBCharacterRoomEntity): BBCharacter {
-        return BBCharacter(char_id = entity.char_id,
+        return BBCharacter(
+            char_id = entity.char_id,
             name = entity.name,
             birthday = entity.birthday,
             occupation = entity.occupation,
@@ -17,11 +17,14 @@ class RoomMapper @Inject constructor(): EntityMapper<BBCharacterRoomEntity, BBCh
             portrayed = entity.portrayed,
             appearance = entity.appearance,
             category = entity.category,
-            better_call_saul_appearance = entity.better_call_saul_appearance)
+            better_call_saul_appearance = entity.better_call_saul_appearance,
+            isFav = entity.isFav
+        )
     }
 
     override fun mapToEntity(domainModel: BBCharacter): BBCharacterRoomEntity {
-        return BBCharacterRoomEntity(char_id = domainModel.char_id,
+        return BBCharacterRoomEntity(
+            char_id = domainModel.char_id,
             name = domainModel.name,
             birthday = domainModel.birthday,
             occupation = domainModel.occupation,
@@ -31,9 +34,12 @@ class RoomMapper @Inject constructor(): EntityMapper<BBCharacterRoomEntity, BBCh
             portrayed = domainModel.portrayed,
             appearance = domainModel.appearance,
             category = domainModel.category,
-            better_call_saul_appearance = domainModel.better_call_saul_appearance)    }
+            better_call_saul_appearance = domainModel.better_call_saul_appearance,
+            isFav = domainModel.isFav
+        )
+    }
 
-    fun mapFromRoomEntityList(entities : List<BBCharacterRoomEntity>): List<BBCharacter>{
+    fun mapFromRoomEntityList(entities: List<BBCharacterRoomEntity>): List<BBCharacter> {
         return entities.map { mapFromEntity(it) }
     }
 }
