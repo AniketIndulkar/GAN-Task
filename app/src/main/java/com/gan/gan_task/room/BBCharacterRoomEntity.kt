@@ -38,6 +38,9 @@ data class BBCharacterRoomEntity (
     @ColumnInfo(name ="category")
     var category: String,
 
+    @ColumnInfo(name ="fav")
+    var isFav: Boolean,
+
     @ColumnInfo(name ="better_call_saul_appearance")
     var better_call_saul_appearance: List<Int>
         ){
